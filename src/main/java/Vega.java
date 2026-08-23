@@ -34,6 +34,8 @@ public class Vega {
             updateTaskStatus(tasks, command, true);
         } else if (command.equals("unmark") || command.startsWith("unmark ")) {
             updateTaskStatus(tasks, command, false);
+        } else if (command.equals("delete") || command.startsWith("delete ")) {
+            deleteTask(tasks, command);
         } else if (command.equals("todo") || command.startsWith("todo ")) {
             String description = command.length() == 4 ? "" : command.substring(5).trim();
             if (description.isEmpty()) {
@@ -45,7 +47,7 @@ public class Vega {
         } else if (command.equals("event") || command.startsWith("event ")) {
             addEvent(tasks, command);
         } else {
-            throw new VegaException("I don't recognise that command. Try todo, deadline, event, list, mark, unmark, or bye.");
+            throw new VegaException("I don't recognise that command. Try todo, deadline, event, list, mark, unmark, delete, or bye.");
         }
     }
 
@@ -85,6 +87,30 @@ public class Vega {
             System.out.println("OK, I've marked this task as not done yet:");
         }
         System.out.println("  " + tasks.get(taskIndex));
+        printLine();
+    }
+
+    /** Removes a numbered task from the list. */
+    private static void deleteTask(ArrayList<Task> tasks, String command) throws VegaException {
+        String numberText = command.substring("delete".length()).trim();
+        int taskNumber;
+        try {
+            taskNumber = Integer.parseInt(numberText);
+        } catch (NumberFormatException e) {
+            throw new VegaException("Please give a valid task number. Try: delete 1");
+        }
+
+        int taskIndex = taskNumber - 1;
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+            throw new VegaException("There is no task numbered " + taskNumber + ".");
+        }
+
+        Task removedTask = tasks.remove(taskIndex);
+        printLine();
+        System.out.println("Noted. I've removed this task:");
+        System.out.println("  " + removedTask);
+        String taskWord = tasks.size() == 1 ? "task" : "tasks";
+        System.out.println("Now you have " + tasks.size() + " " + taskWord + " in the list.");
         printLine();
     }
 
