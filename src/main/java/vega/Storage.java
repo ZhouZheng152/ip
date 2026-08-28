@@ -12,12 +12,21 @@ import java.util.List;
 public class Storage {
     private final Path filePath;
 
-    /** Creates storage that uses the given relative or absolute file path. */
+    /**
+     * Creates storage that uses the given relative or absolute file path.
+     *
+     * @param filePath Location of Vega's task data file.
+     */
     public Storage(String filePath) {
         this.filePath = Path.of(filePath);
     }
 
-    /** Loads saved tasks, or returns an empty list when no save file exists yet. */
+    /**
+     * Loads saved tasks, or returns an empty list when no save file exists yet.
+     *
+     * @return Tasks reconstructed from the data file.
+     * @throws VegaException If the data file cannot be read or contains invalid data.
+     */
     public ArrayList<Task> loadTasks() throws VegaException {
         ArrayList<Task> tasks = new ArrayList<>();
         if (!Files.exists(filePath)) {
@@ -36,7 +45,12 @@ public class Storage {
         }
     }
 
-    /** Saves all tasks, creating the data directory when necessary. */
+    /**
+     * Saves all tasks, creating the data directory when necessary.
+     *
+     * @param tasks Tasks to write to the data file.
+     * @throws VegaException If the task data cannot be written.
+     */
     public void saveTasks(List<Task> tasks) throws VegaException {
         ArrayList<String> lines = new ArrayList<>();
         for (Task task : tasks) {

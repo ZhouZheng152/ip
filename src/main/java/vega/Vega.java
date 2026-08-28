@@ -7,7 +7,11 @@ public class Vega {
     private final TaskList tasks;
     private final Ui ui;
 
-    /** Creates Vega using the given task data file. */
+    /**
+     * Creates Vega using the given task data file.
+     *
+     * @param filePath Location of Vega's task data file.
+     */
     public Vega(String filePath) {
         parser = new Parser();
         storage = new Storage(filePath);
@@ -42,7 +46,11 @@ public class Vega {
         ui.showGoodbye();
     }
 
-    /** Runs Vega using its default data file. */
+    /**
+     * Runs Vega using its default data file.
+     *
+     * @param args Command-line arguments, which Vega does not use.
+     */
     public static void main(String[] args) {
         new Vega("data/vega.txt").run();
     }

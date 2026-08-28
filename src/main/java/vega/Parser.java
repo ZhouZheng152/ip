@@ -3,23 +3,48 @@ package vega;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
-/** Converts user input into command names, arguments, and task data. */
+/**
+ * Converts user input into command names, arguments, and task data.
+ */
 public class Parser {
-    /** Returns the first word of a command. */
+    /**
+     * Creates a parser for Vega commands.
+     */
+    public Parser() {
+    }
+
+    /**
+     * Returns the first word of a command.
+     *
+     * @param input Full command entered by the user.
+     * @return Command word without its arguments.
+     */
     public String getCommandWord(String input) {
         String trimmedInput = input.trim();
         int firstSpace = trimmedInput.indexOf(' ');
         return firstSpace < 0 ? trimmedInput : trimmedInput.substring(0, firstSpace);
     }
 
-    /** Returns the text after the command word. */
+    /**
+     * Returns the text after the command word.
+     *
+     * @param input Full command entered by the user.
+     * @return Command arguments, or an empty string if none were supplied.
+     */
     public String getArguments(String input) {
         String trimmedInput = input.trim();
         int firstSpace = trimmedInput.indexOf(' ');
         return firstSpace < 0 ? "" : trimmedInput.substring(firstSpace + 1).trim();
     }
 
-    /** Parses a one-based task number from a command argument. */
+    /**
+     * Parses a one-based task number from a command argument.
+     *
+     * @param argument Text expected to contain a task number.
+     * @param commandWord Command name used in the error hint.
+     * @return Parsed one-based task number.
+     * @throws VegaException If the argument is not an integer.
+     */
     public int parseTaskNumber(String argument, String commandWord) throws VegaException {
         try {
             return Integer.parseInt(argument);
@@ -28,7 +53,13 @@ public class Parser {
         }
     }
 
-    /** Parses a deadline argument in the form DESCRIPTION /by yyyy-MM-dd. */
+    /**
+     * Parses a deadline argument in the form {@code DESCRIPTION /by yyyy-MM-dd}.
+     *
+     * @param argument Deadline description and date.
+     * @return Parsed deadline task.
+     * @throws VegaException If the description, separator, or date is invalid.
+     */
     public Deadline parseDeadline(String argument) throws VegaException {
         String[] parts = argument.split(" /by ", 2);
         if (parts.length < 2 || parts[0].isBlank() || parts[1].isBlank()) {
@@ -42,7 +73,13 @@ public class Parser {
         }
     }
 
-    /** Parses an event argument in the form DESCRIPTION /from START /to END. */
+    /**
+     * Parses an event argument in the form {@code DESCRIPTION /from START /to END}.
+     *
+     * @param argument Event description, start time, and end time.
+     * @return Parsed event task.
+     * @throws VegaException If a required event component is missing.
+     */
     public Event parseEvent(String argument) throws VegaException {
         String[] fromParts = argument.split(" /from ", 2);
         if (fromParts.length < 2) {
