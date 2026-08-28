@@ -1,3 +1,5 @@
+package vega;
+
 /**
  * Represents a task in Vega's list. Subclasses provide the task-specific
  * details while this class keeps the common description and completion state.
