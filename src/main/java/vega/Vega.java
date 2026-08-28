@@ -59,33 +59,33 @@ public class Vega {
         String commandWord = parser.getCommandWord(command);
         String argument = parser.getArguments(command);
         switch (commandWord) {
-        case "list":
-            ui.showTaskList(tasks.asList());
-            break;
-        case "mark":
-            updateTaskStatus(argument, true);
-            break;
-        case "unmark":
-            updateTaskStatus(argument, false);
-            break;
-        case "delete":
-            deleteTask(argument);
-            break;
-        case "todo":
-            if (argument.isEmpty()) {
-                throw new VegaException("A todo needs a description. Try: todo buy milk");
-            }
-            addTask(new Todo(argument));
-            break;
-        case "deadline":
-            addTask(parser.parseDeadline(argument));
-            break;
-        case "event":
-            addTask(parser.parseEvent(argument));
-            break;
-        default:
-            throw new VegaException("I don't recognise that command. "
-                    + "Try todo, deadline, event, list, mark, unmark, delete, or bye.");
+            case "list":
+                ui.showTaskList(tasks.asList());
+                break;
+            case "mark":
+                updateTaskStatus(argument, true);
+                break;
+            case "unmark":
+                updateTaskStatus(argument, false);
+                break;
+            case "delete":
+                deleteTask(argument);
+                break;
+            case "todo":
+                if (argument.isEmpty()) {
+                    throw new VegaException("A todo needs a description. Try: todo buy milk");
+                }
+                addTask(new Todo(argument));
+                break;
+            case "deadline":
+                addTask(parser.parseDeadline(argument));
+                break;
+            case "event":
+                addTask(parser.parseEvent(argument));
+                break;
+            default:
+                throw new VegaException("I don't recognise that command. "
+                        + "Try todo, deadline, event, list, mark, unmark, delete, or bye.");
         }
     }
 

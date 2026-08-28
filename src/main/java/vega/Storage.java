@@ -77,23 +77,23 @@ public class Storage {
 
         Task task;
         switch (parts[0]) {
-        case "T":
-            task = new Todo(parts[2]);
-            break;
-        case "D":
-            if (parts.length != 4) {
-                throw new IllegalArgumentException("Invalid saved deadline");
-            }
-            task = new Deadline(parts[2], LocalDate.parse(parts[3]));
-            break;
-        case "E":
-            if (parts.length != 5) {
-                throw new IllegalArgumentException("Invalid saved event");
-            }
-            task = new Event(parts[2], parts[3], parts[4]);
-            break;
-        default:
-            throw new IllegalArgumentException("Unknown saved task type");
+            case "T":
+                task = new Todo(parts[2]);
+                break;
+            case "D":
+                if (parts.length != 4) {
+                    throw new IllegalArgumentException("Invalid saved deadline");
+                }
+                task = new Deadline(parts[2], LocalDate.parse(parts[3]));
+                break;
+            case "E":
+                if (parts.length != 5) {
+                    throw new IllegalArgumentException("Invalid saved event");
+                }
+                task = new Event(parts[2], parts[3], parts[4]);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown saved task type");
         }
 
         if (parts[1].equals("1")) {
