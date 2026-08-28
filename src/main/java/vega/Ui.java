@@ -20,7 +20,11 @@ public class Ui implements AutoCloseable {
         System.out.println("What can I do for you?");
     }
 
-    /** Reads the next command from the user. */
+    /**
+     * Reads the next command from the user.
+     *
+     * @return Command entered by the user.
+     */
     public String readCommand() {
         return scanner.nextLine();
     }
@@ -30,14 +34,22 @@ public class Ui implements AutoCloseable {
         System.out.println("Bye. Hope to see you again soon!");
     }
 
-    /** Displays a user-facing error. */
+    /**
+     * Displays a user-facing error.
+     *
+     * @param message Explanation of the error.
+     */
     public void showError(String message) {
         showLine();
         System.out.println("OOPS!!! " + message);
         showLine();
     }
 
-    /** Displays all tasks with one-based numbering. */
+    /**
+     * Displays all tasks with one-based numbering.
+     *
+     * @param tasks Tasks to display.
+     */
     public void showTaskList(List<Task> tasks) {
         showLine();
         System.out.println("Here are the tasks in your list:");
@@ -47,7 +59,12 @@ public class Ui implements AutoCloseable {
         showLine();
     }
 
-    /** Displays confirmation that a task was added. */
+    /**
+     * Displays confirmation that a task was added.
+     *
+     * @param task Task that was added.
+     * @param taskCount Number of tasks after the addition.
+     */
     public void showTaskAdded(Task task, int taskCount) {
         showLine();
         System.out.println("Got it. I've added this task:");
@@ -56,7 +73,12 @@ public class Ui implements AutoCloseable {
         showLine();
     }
 
-    /** Displays confirmation that a task was removed. */
+    /**
+     * Displays confirmation that a task was removed.
+     *
+     * @param task Task that was removed.
+     * @param taskCount Number of tasks after the removal.
+     */
     public void showTaskDeleted(Task task, int taskCount) {
         showLine();
         System.out.println("Noted. I've removed this task:");
@@ -65,7 +87,12 @@ public class Ui implements AutoCloseable {
         showLine();
     }
 
-    /** Displays confirmation that a task's completion status changed. */
+    /**
+     * Displays confirmation that a task's completion status changed.
+     *
+     * @param task Task whose status changed.
+     * @param isDone Whether the task is now complete.
+     */
     public void showTaskStatusChanged(Task task, boolean isDone) {
         showLine();
         System.out.println(isDone

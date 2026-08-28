@@ -3,41 +3,73 @@ package vega;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Owns Vega's task collection and validates numbered task access. */
+/**
+ * Owns Vega's task collection and validates numbered task access.
+ */
 public class TaskList {
     private final ArrayList<Task> tasks;
 
-    /** Creates an empty task list. */
+    /**
+     * Creates an empty task list.
+     */
     public TaskList() {
         tasks = new ArrayList<>();
     }
 
-    /** Creates a task list containing the loaded tasks. */
+    /**
+     * Creates a task list containing the loaded tasks.
+     *
+     * @param tasks Tasks loaded from persistent storage.
+     */
     public TaskList(List<Task> tasks) {
         this.tasks = new ArrayList<>(tasks);
     }
 
-    /** Adds a task to the end of the list. */
+    /**
+     * Adds a task to the end of the list.
+     *
+     * @param task Task to add.
+     */
     public void add(Task task) {
         tasks.add(task);
     }
 
-    /** Returns the task at the given one-based task number. */
+    /**
+     * Returns the task at the given one-based task number.
+     *
+     * @param taskNumber One-based position of the task.
+     * @return Task at the requested position.
+     * @throws VegaException If the task number is outside the list.
+     */
     public Task get(int taskNumber) throws VegaException {
         return tasks.get(toIndex(taskNumber));
     }
 
-    /** Removes and returns the task at the given one-based task number. */
+    /**
+     * Removes and returns the task at the given one-based task number.
+     *
+     * @param taskNumber One-based position of the task.
+     * @return Removed task.
+     * @throws VegaException If the task number is outside the list.
+     */
     public Task delete(int taskNumber) throws VegaException {
         return tasks.remove(toIndex(taskNumber));
     }
 
-    /** Returns the number of tasks in the list. */
+    /**
+     * Returns the number of tasks in the list.
+     *
+     * @return Number of stored tasks.
+     */
     public int size() {
         return tasks.size();
     }
 
-    /** Returns an unmodifiable snapshot for display and storage. */
+    /**
+     * Returns an unmodifiable snapshot for display and storage.
+     *
+     * @return Snapshot of the tasks in their current order.
+     */
     public List<Task> asList() {
         return List.copyOf(tasks);
     }

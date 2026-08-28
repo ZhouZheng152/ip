@@ -9,7 +9,12 @@ public class Task {
     private final String type;
     private boolean isDone;
 
-    /** Creates a task with a description and a one-letter task type. */
+    /**
+     * Creates a task with a description and a one-letter task type.
+     *
+     * @param description Description of the task.
+     * @param type One-letter task type used when displaying and saving the task.
+     */
     public Task(String description, String type) {
         this.description = description;
         this.type = type;
@@ -25,17 +30,29 @@ public class Task {
         isDone = false;
     }
 
-    /** Returns this task's description for persistent storage. */
+    /**
+     * Returns this task's description for persistent storage.
+     *
+     * @return Description of this task.
+     */
     public String getDescription() {
         return description;
     }
 
-    /** Returns the one-letter type code used for this task. */
+    /**
+     * Returns the one-letter type code used for this task.
+     *
+     * @return One-letter task type.
+     */
     public String getType() {
         return type;
     }
 
-    /** Returns whether this task has been completed. */
+    /**
+     * Returns whether this task has been completed.
+     *
+     * @return {@code true} if this task is complete.
+     */
     public boolean isDone() {
         return isDone;
     }
