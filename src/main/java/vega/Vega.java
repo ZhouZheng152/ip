@@ -75,9 +75,15 @@ public class Vega {
         case "event":
             addTask(parser.parseEvent(argument));
             break;
+        case "find":
+            if (argument.isEmpty()) {
+                throw new VegaException("Please give a keyword to find. Try: find book");
+            }
+            ui.showMatchingTasks(tasks.find(argument));
+            break;
         default:
             throw new VegaException("I don't recognise that command. "
-                    + "Try todo, deadline, event, list, mark, unmark, delete, or bye.");
+                    + "Try todo, deadline, event, list, mark, unmark, delete, find, or bye.");
         }
     }
 
