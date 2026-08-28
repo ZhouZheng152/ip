@@ -1,3 +1,5 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -136,14 +138,20 @@ public class Vega {
         printLine();
     }
 
-    /** Parses and adds a deadline command in the form "deadline DESCRIPTION /by TIME". */
+    /** Parses and adds a deadline command in the form "deadline DESCRIPTION /by yyyy-MM-dd". */
     private static void addDeadline(ArrayList<Task> tasks, String command, Storage storage) throws VegaException {
         String details = command.length() == 8 ? "" : command.substring(9);
         String[] parts = details.split(" /by ", 2);
         if (parts.length < 2 || parts[0].isBlank() || parts[1].isBlank()) {
-            throw new VegaException("A deadline needs a description and a /by time. Try: deadline submit report /by Friday");
+            throw new VegaException("A deadline needs a description and a /by date. "
+                    + "Try: deadline submit report /by 2026-08-31");
         }
-        addTask(tasks, new Deadline(parts[0].trim(), parts[1].trim()), storage);
+        try {
+            LocalDate by = LocalDate.parse(parts[1].trim());
+            addTask(tasks, new Deadline(parts[0].trim(), by), storage);
+        } catch (DateTimeParseException e) {
+            throw new VegaException("Please enter the deadline date as yyyy-MM-dd, for example 2026-08-31.");
+        }
     }
 
     /** Parses and adds an event command in the form "event DESCRIPTION /from START /to END". */
