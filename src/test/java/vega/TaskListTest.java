@@ -36,4 +36,23 @@ public class TaskListTest {
 
         assertThrows(VegaException.class, () -> tasks.get(1));
     }
+
+    @Test
+    public void find_matchingKeyword_returnsOnlyMatchingTasks() {
+        TaskList tasks = new TaskList();
+        Todo matchingTodo = new Todo("Read Book");
+        tasks.add(matchingTodo);
+        tasks.add(new Todo("buy milk"));
+
+        assertEquals(1, tasks.find("book").size());
+        assertSame(matchingTodo, tasks.find("book").get(0));
+    }
+
+    @Test
+    public void find_keywordWithDifferentCase_matchesCaseInsensitively() {
+        TaskList tasks = new TaskList();
+        tasks.add(new Todo("Submit Report"));
+
+        assertEquals(1, tasks.find("REPORT").size());
+    }
 }
