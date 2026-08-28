@@ -10,6 +10,16 @@ public class Event extends Task {
         this.to = to;
     }
 
+    /** Returns the event start time text for persistent storage. */
+    public String getFrom() {
+        return from;
+    }
+
+    /** Returns the event end time text for persistent storage. */
+    public String getTo() {
+        return to;
+    }
+
     @Override
     public String toString() {
         return super.toString() + " (from: " + from + " to: " + to + ")";

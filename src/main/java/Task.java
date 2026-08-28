@@ -23,6 +23,21 @@ public class Task {
         isDone = false;
     }
 
+    /** Returns this task's description for persistent storage. */
+    public String getDescription() {
+        return description;
+    }
+
+    /** Returns the one-letter type code used for this task. */
+    public String getType() {
+        return type;
+    }
+
+    /** Returns whether this task has been completed. */
+    public boolean isDone() {
+        return isDone;
+    }
+
     @Override
     public String toString() {
         String status = isDone ? "X" : " ";
