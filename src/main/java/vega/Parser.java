@@ -46,7 +46,8 @@ public class Parser {
     public Event parseEvent(String argument) throws VegaException {
         String[] fromParts = argument.split(" /from ", 2);
         if (fromParts.length < 2) {
-            throw new VegaException("An event needs /from and /to times. Try: event meeting /from 2pm /to 4pm");
+            throw new VegaException("An event needs /from and /to times. "
+                    + "Try: event meeting /from 2pm /to 4pm");
         }
         String[] toParts = fromParts[1].split(" /to ", 2);
         if (fromParts[0].isBlank() || toParts.length < 2 || toParts[0].isBlank() || toParts[1].isBlank()) {
