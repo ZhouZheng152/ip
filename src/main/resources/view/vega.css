@@ -1,0 +1,31 @@
+.root {
+    -fx-background-color: #eef2ff;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+}
+
+.scroll-pane,
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+.message {
+    -fx-background-color: white;
+    -fx-background-radius: 10px;
+    -fx-padding: 10px;
+}
+
+.avatar {
+    -fx-alignment: center;
+    -fx-background-color: #4f46e5;
+    -fx-background-radius: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-min-height: 40px;
+    -fx-min-width: 40px;
+}
