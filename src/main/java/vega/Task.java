@@ -6,7 +6,9 @@ package vega;
  */
 public class Task {
     private final String description;
+
     private final String type;
+
     private boolean isDone;
 
     /**
