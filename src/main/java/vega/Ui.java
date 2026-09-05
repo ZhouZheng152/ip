@@ -1,5 +1,7 @@
 package vega;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 
@@ -7,17 +9,38 @@ import java.util.Scanner;
 public class Ui implements AutoCloseable {
     private static final String LINE = "____________________________________________________________";
 
+    private final PrintStream output;
+
     private final Scanner scanner;
 
     /** Creates a console UI that reads from standard input. */
     public Ui() {
-        scanner = new Scanner(System.in);
+        this(System.in, System.out);
+    }
+
+    /**
+     * Creates a UI using the supplied streams.
+     *
+     * @param input Source of commands.
+     * @param output Destination for responses.
+     */
+    public Ui(InputStream input, PrintStream output) {
+        scanner = new Scanner(input);
+        this.output = output;
     }
 
     /** Displays Vega's greeting. */
     public void showWelcome() {
-        System.out.println("Hello! I'm Vega");
-        System.out.println("What can I do for you?");
+        output.println(getGreeting());
+    }
+
+    /**
+     * Returns Vega's greeting without printing it.
+     *
+     * @return Greeting shown at startup.
+     */
+    public static String getGreeting() {
+        return "Hello! I'm Vega\nWhat can I do for you?";
     }
 
     /**
@@ -31,7 +54,7 @@ public class Ui implements AutoCloseable {
 
     /** Displays Vega's farewell. */
     public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        output.println("Bye. Hope to see you again soon!");
     }
 
     /**
@@ -41,7 +64,7 @@ public class Ui implements AutoCloseable {
      */
     public void showError(String message) {
         showLine();
-        System.out.println("OOPS!!! " + message);
+        output.println("OOPS!!! " + message);
         showLine();
     }
 
@@ -52,7 +75,7 @@ public class Ui implements AutoCloseable {
      */
     public void showTaskList(List<Task> tasks) {
         showLine();
-        System.out.println("Here are the tasks in your list:");
+        output.println("Here are the tasks in your list:");
         showNumberedTasks(tasks);
         showLine();
     }
@@ -64,14 +87,14 @@ public class Ui implements AutoCloseable {
      */
     public void showMatchingTasks(List<Task> tasks) {
         showLine();
-        System.out.println("Here are the matching tasks in your list:");
+        output.println("Here are the matching tasks in your list:");
         showNumberedTasks(tasks);
         showLine();
     }
 
     private void showNumberedTasks(List<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i));
+            output.println((i + 1) + "." + tasks.get(i));
         }
     }
 
@@ -83,8 +106,8 @@ public class Ui implements AutoCloseable {
      */
     public void showTaskAdded(Task task, int taskCount) {
         showLine();
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
+        output.println("Got it. I've added this task:");
+        output.println("  " + task);
         showTaskCount(taskCount);
         showLine();
     }
@@ -97,8 +120,8 @@ public class Ui implements AutoCloseable {
      */
     public void showTaskDeleted(Task task, int taskCount) {
         showLine();
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + task);
+        output.println("Noted. I've removed this task:");
+        output.println("  " + task);
         showTaskCount(taskCount);
         showLine();
     }
@@ -111,20 +134,20 @@ public class Ui implements AutoCloseable {
      */
     public void showTaskStatusChanged(Task task, boolean isDone) {
         showLine();
-        System.out.println(isDone
+        output.println(isDone
                 ? "Nice! I've marked this task as done:"
                 : "OK, I've marked this task as not done yet:");
-        System.out.println("  " + task);
+        output.println("  " + task);
         showLine();
     }
 
     private void showTaskCount(int taskCount) {
         String taskWord = taskCount == 1 ? "task" : "tasks";
-        System.out.println("Now you have " + taskCount + " " + taskWord + " in the list.");
+        output.println("Now you have " + taskCount + " " + taskWord + " in the list.");
     }
 
     private void showLine() {
-        System.out.println(LINE);
+        output.println(LINE);
     }
 
     @Override
