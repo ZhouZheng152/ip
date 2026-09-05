@@ -63,9 +63,7 @@ public class Ui implements AutoCloseable {
      * @param message Explanation of the error.
      */
     public void showError(String message) {
-        showLine();
-        output.println("OOPS!!! " + message);
-        showLine();
+        showLines(LINE, "OOPS!!! " + message, LINE);
     }
 
     /**
@@ -105,9 +103,7 @@ public class Ui implements AutoCloseable {
      * @param taskCount Number of tasks after the addition.
      */
     public void showTaskAdded(Task task, int taskCount) {
-        showLine();
-        output.println("Got it. I've added this task:");
-        output.println("  " + task);
+        showLines(LINE, "Got it. I've added this task:", "  " + task);
         showTaskCount(taskCount);
         showLine();
     }
@@ -119,9 +115,7 @@ public class Ui implements AutoCloseable {
      * @param taskCount Number of tasks after the removal.
      */
     public void showTaskDeleted(Task task, int taskCount) {
-        showLine();
-        output.println("Noted. I've removed this task:");
-        output.println("  " + task);
+        showLines(LINE, "Noted. I've removed this task:", "  " + task);
         showTaskCount(taskCount);
         showLine();
     }
@@ -148,6 +142,17 @@ public class Ui implements AutoCloseable {
 
     private void showLine() {
         output.println(LINE);
+    }
+
+    /**
+     * Displays any number of response lines in their supplied order.
+     *
+     * @param lines Response lines to display.
+     */
+    private void showLines(String... lines) {
+        for (String line : lines) {
+            output.println(line);
+        }
     }
 
     @Override
