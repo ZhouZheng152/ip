@@ -3,6 +3,7 @@ package vega;
 /** Represents a task scheduled from one time to another. */
 public class Event extends Task {
     private final String from;
+
     private final String to;
 
     /**

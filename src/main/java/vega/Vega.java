@@ -3,8 +3,11 @@ package vega;
 /** Coordinates Vega's user interface, command parsing, task list, and storage. */
 public class Vega {
     private final Parser parser;
+
     private final Storage storage;
+
     private final TaskList tasks;
+
     private final Ui ui;
 
     /**
