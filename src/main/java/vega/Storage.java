@@ -106,6 +106,7 @@ public class Storage {
 
     /** Converts a task into one tab-separated line for the save file. */
     private String formatTask(Task task) {
+        assert task != null : "Task to save must not be null";
         String status = task.isDone() ? "1" : "0";
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;

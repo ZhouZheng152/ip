@@ -23,6 +23,8 @@ public class TaskList {
      * @param tasks Tasks loaded from persistent storage.
      */
     public TaskList(List<Task> tasks) {
+        assert tasks != null : "Initial task list must not be null";
+        assert tasks.stream().noneMatch(task -> task == null) : "Task list must not contain null";
         this.tasks = new ArrayList<>(tasks);
     }
 
@@ -32,6 +34,7 @@ public class TaskList {
      * @param task Task to add.
      */
     public void add(Task task) {
+        assert task != null : "Task to add must not be null";
         tasks.add(task);
     }
 
