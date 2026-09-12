@@ -72,10 +72,7 @@ public class Ui implements AutoCloseable {
      * @param tasks Tasks to display.
      */
     public void showTaskList(List<Task> tasks) {
-        showLine();
-        output.println("Here are the tasks in your list:");
-        showNumberedTasks(tasks);
-        showLine();
+        showTasks("Here are the tasks in your list:", tasks);
     }
 
     /**
@@ -84,8 +81,13 @@ public class Ui implements AutoCloseable {
      * @param tasks Matching tasks to display.
      */
     public void showMatchingTasks(List<Task> tasks) {
+        showTasks("Here are the matching tasks in your list:", tasks);
+    }
+
+    /** Displays a titled and numbered collection of tasks. */
+    private void showTasks(String heading, List<Task> tasks) {
         showLine();
-        output.println("Here are the matching tasks in your list:");
+        output.println(heading);
         showNumberedTasks(tasks);
         showLine();
     }
