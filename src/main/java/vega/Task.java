@@ -18,6 +18,8 @@ public class Task {
      * @param type One-letter task type used when displaying and saving the task.
      */
     public Task(String description, String type) {
+        assert description != null : "Task description must not be null";
+        assert type != null && type.length() == 1 : "Task type must be a one-letter code";
         this.description = description;
         this.type = type;
     }
