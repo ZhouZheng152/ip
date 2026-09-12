@@ -84,6 +84,20 @@ public class Ui implements AutoCloseable {
         showTasks("Here are the matching tasks in your list:", tasks);
     }
 
+    /**
+     * Displays all notes with one-based numbering.
+     *
+     * @param notes Notes to display.
+     */
+    public void showNoteList(List<Note> notes) {
+        showLine();
+        output.println("Here are your notes:");
+        for (int i = 0; i < notes.size(); i++) {
+            output.println((i + 1) + ". " + notes.get(i));
+        }
+        showLine();
+    }
+
     /** Displays a titled and numbered collection of tasks. */
     private void showTasks(String heading, List<Task> tasks) {
         showLine();
@@ -137,9 +151,28 @@ public class Ui implements AutoCloseable {
         showLine();
     }
 
+    /** Displays confirmation that a note was added. */
+    public void showNoteAdded(Note note, int noteCount) {
+        showLines(LINE, "Got it. I've recorded this note:", "  " + note);
+        showNoteCount(noteCount);
+        showLine();
+    }
+
+    /** Displays confirmation that a note was removed. */
+    public void showNoteDeleted(Note note, int noteCount) {
+        showLines(LINE, "Noted. I've removed this note:", "  " + note);
+        showNoteCount(noteCount);
+        showLine();
+    }
+
     private void showTaskCount(int taskCount) {
         String taskWord = taskCount == 1 ? "task" : "tasks";
         output.println("Now you have " + taskCount + " " + taskWord + " in the list.");
+    }
+
+    private void showNoteCount(int noteCount) {
+        String noteWord = noteCount == 1 ? "note" : "notes";
+        output.println("Now you have " + noteCount + " " + noteWord + ".");
     }
 
     private void showLine() {
