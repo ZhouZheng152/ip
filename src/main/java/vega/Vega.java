@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 
 /** Coordinates Vega's user interface, command parsing, task list, and storage. */
 public class Vega {
@@ -11,7 +12,11 @@ public class Vega {
 
     private final Storage storage;
 
+    private final NoteStorage noteStorage;
+
     private final TaskList tasks;
+
+    private final NoteList notes;
 
     private final Ui ui;
 
@@ -25,6 +30,8 @@ public class Vega {
     public Vega(String filePath) {
         parser = new Parser();
         storage = new Storage(filePath);
+        Path taskFilePath = Path.of(filePath);
+        noteStorage = new NoteStorage(taskFilePath.resolveSibling("vega-notes.txt").toString());
         ui = new Ui();
 
         TaskList loadedTasks;
@@ -35,6 +42,15 @@ public class Vega {
             loadedTasks = new TaskList();
         }
         tasks = loadedTasks;
+
+        NoteList loadedNotes;
+        try {
+            loadedNotes = new NoteList(noteStorage.loadNotes());
+        } catch (VegaException e) {
+            ui.showError(e.getMessage());
+            loadedNotes = new NoteList();
+        }
+        notes = loadedNotes;
         isExitRequested = false;
     }
 
@@ -143,9 +159,19 @@ public class Vega {
                 }
                 activeUi.showMatchingTasks(tasks.find(argument));
                 break;
+            case "note":
+                addNote(argument, activeUi);
+                break;
+            case "notes":
+                activeUi.showNoteList(notes.asList());
+                break;
+            case "delete-note":
+                deleteNote(argument, activeUi);
+                break;
             default:
                 throw new VegaException("I don't recognise that command. "
-                        + "Try todo, deadline, event, list, mark, unmark, delete, find, or bye.");
+                        + "Try todo, deadline, event, list, mark, unmark, delete, find, "
+                        + "note, notes, delete-note, or bye.");
         }
     }
 
@@ -173,5 +199,27 @@ public class Vega {
         tasks.add(task);
         storage.saveTasks(tasks.asList());
         activeUi.showTaskAdded(task, tasks.size());
+    }
+
+    private void addNote(String text, Ui activeUi) throws VegaException {
+        if (text.isBlank()) {
+            throw new VegaException("A note needs some text. Try: note room code is 1234");
+        }
+        Note note = new Note(text);
+        notes.add(note);
+        noteStorage.saveNotes(notes.asList());
+        activeUi.showNoteAdded(note, notes.size());
+    }
+
+    private void deleteNote(String argument, Ui activeUi) throws VegaException {
+        int noteNumber;
+        try {
+            noteNumber = Integer.parseInt(argument);
+        } catch (NumberFormatException e) {
+            throw new VegaException("Please give a valid note number. Try: delete-note 1");
+        }
+        Note removedNote = notes.delete(noteNumber);
+        noteStorage.saveNotes(notes.asList());
+        activeUi.showNoteDeleted(removedNote, notes.size());
     }
 }

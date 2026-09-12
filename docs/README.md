@@ -1,30 +1,25 @@
-# Duke User Guide
+# Vega User Guide
 
-// Update the title above to match the actual product name
+Vega is a desktop chatbot that manages tasks and records short notes.
 
-// Product screenshot goes here
+## Managing tasks
 
-// Product intro goes here
+- `todo DESCRIPTION` adds a todo.
+- `deadline DESCRIPTION /by yyyy-MM-dd` adds a deadline.
+- `event DESCRIPTION /from START /to END` adds an event.
+- `list` lists every task.
+- `mark NUMBER` and `unmark NUMBER` update a task's completion status.
+- `delete NUMBER` removes a task.
+- `find KEYWORD` finds matching task descriptions.
 
-## Adding deadlines
+## Managing notes
 
-// Describe the action and its outcome.
+Notes are separate from tasks and are saved automatically between sessions.
 
-// Give examples of usage
+- `note TEXT` records a new note, e.g. `note room code is 1234`.
+- `notes` lists every saved note.
+- `delete-note NUMBER` removes the numbered note, e.g. `delete-note 1`.
 
-Example: `keyword (optional arguments)`
+## Exiting
 
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+Enter `bye` to close Vega.
