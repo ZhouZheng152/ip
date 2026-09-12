@@ -19,6 +19,13 @@ public class TaskListTest {
     }
 
     @Test
+    public void add_nullTask_throwsAssertionError() {
+        TaskList tasks = new TaskList();
+
+        assertThrows(AssertionError.class, () -> tasks.add(null));
+    }
+
+    @Test
     public void delete_existingTask_removesAndReturnsTask() throws VegaException {
         TaskList tasks = new TaskList();
         Todo todo = new Todo("read book");
