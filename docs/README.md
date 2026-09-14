@@ -3,6 +3,8 @@
 Vega is a friendly desktop chatbot that helps you manage tasks and keep short notes through simple text commands.
 Your data is saved automatically, so your tasks and notes are restored the next time you open Vega.
 
+![Vega graphical user interface](Ui.png)
+
 ## Quick start
 
 1. Install Java 25.
