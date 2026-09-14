@@ -28,4 +28,25 @@ public class ParserTest {
         assertThrows(VegaException.class,
                 () -> parser.parseDeadline("submit report /by 2026-02-30"));
     }
+
+    @Test
+    public void parseEvent_validInput_returnsEventWithAllDetails() throws VegaException {
+        Event event = parser.parseEvent("project meeting /from 2pm /to 4pm");
+
+        assertEquals("[E][ ] project meeting (from: 2pm to: 4pm)", event.toString());
+    }
+
+    @Test
+    public void parseEvent_missingEndTime_throwsVegaException() {
+        assertThrows(VegaException.class,
+                () -> parser.parseEvent("project meeting /from 2pm"));
+    }
+
+    @Test
+    public void getCommandWordAndArguments_extraOuterSpaces_trimsBothParts() {
+        String input = "   todo read a book   ";
+
+        assertEquals("todo", parser.getCommandWord(input));
+        assertEquals("read a book", parser.getArguments(input));
+    }
 }
