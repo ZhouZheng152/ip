@@ -9,7 +9,7 @@ public class DialogBox extends HBox {
     private DialogBox(String text, String speaker, boolean isVega) {
         Label message = new Label(text);
         message.setWrapText(true);
-        message.setMaxWidth(300);
+        message.setMaxWidth(320);
         message.getStyleClass().add("message");
 
         Label avatar = new Label(speaker);
@@ -18,9 +18,20 @@ public class DialogBox extends HBox {
 
         if (isVega) {
             setAlignment(Pos.TOP_LEFT);
+            getStyleClass().add("vega-dialog");
+            message.getStyleClass().add("vega-message");
+            avatar.getStyleClass().add("vega-avatar");
+            if (text.startsWith("OOPS!!!")) {
+                getStyleClass().add("error-dialog");
+                message.getStyleClass().add("error-message");
+                avatar.setText("!");
+            }
             getChildren().addAll(avatar, message);
         } else {
             setAlignment(Pos.TOP_RIGHT);
+            getStyleClass().add("user-dialog");
+            message.getStyleClass().add("user-message");
+            avatar.getStyleClass().add("user-avatar");
             getChildren().addAll(message, avatar);
         }
     }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="420.0"
+<AnchorPane minHeight="520.0" minWidth="400.0" prefHeight="640.0" prefWidth="460.0"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="vega.MainWindow">
@@ -15,14 +15,15 @@
                     AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="0.0"
                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <content>
-                <VBox fx:id="dialogContainer" spacing="4.0" />
+                <VBox fx:id="dialogContainer" fillWidth="true" spacing="2.0"
+                      styleClass="dialog-container" />
             </content>
         </ScrollPane>
-        <TextField fx:id="userInput" onAction="#handleUserInput"
+        <TextField fx:id="userInput" onAction="#handleUserInput" styleClass="command-input"
                    promptText="Enter a command..."
                    AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0"
                    AnchorPane.rightAnchor="86.0" />
-        <Button fx:id="sendButton" onAction="#handleUserInput" text="Send"
+        <Button fx:id="sendButton" onAction="#handleUserInput" styleClass="send-button" text="Send"
                 AnchorPane.bottomAnchor="8.0" AnchorPane.rightAnchor="8.0" />
     </children>
 </AnchorPane>

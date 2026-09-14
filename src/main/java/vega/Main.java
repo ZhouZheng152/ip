@@ -22,8 +22,8 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(Main.class.getResource("/view/vega.css").toExternalForm());
         stage.setTitle("Vega");
-        stage.setMinWidth(420);
-        stage.setMinHeight(600);
+        stage.setMinWidth(400);
+        stage.setMinHeight(520);
         stage.setScene(scene);
         stage.show();
     }
